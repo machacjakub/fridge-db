@@ -11,7 +11,6 @@ const server = async () => {
 		throw db.value;
 	}
 
-	// Define a endpoint for /users
 	app.get( '/items', async ( req: any, res: any ) => {
 		const items = await db.value.getAll();
 		if ( isLeft( items ) ){
@@ -22,7 +21,7 @@ const server = async () => {
 	} );
 
 	app.post( '/items', async ( req: any, res: any ) => {
-		const item = await db.value.create( req.query );
+		await db.value.create( req.query );
 		console.log( 'Data from postman: ', req.query );
 		res.status( 201 ).send( { message: 'User created successfully' } );
 	  } );
@@ -31,14 +30,6 @@ const server = async () => {
 	app.listen( 3000, () => {
 		console.log( 'Server started on http://localhost:3000' );
 	} );
-
-/*
-const values: Values = ['Masso' , '15-12-2023', 1, 'inFridge', 'meat'];
-const createLog = db.create( values );
-console.log( createLog );
-const allData = db.all();
-console.log( allData );
-*/
 };
 
 server();
